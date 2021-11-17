@@ -1,8 +1,10 @@
 #include "openglwindow.hpp"
 
 #include <imgui.h>
+#include <math.h>
 
 #include <cppitertools/itertools.hpp>
+#include <glm/gtx/fast_trigonometry.hpp>
 
 void OpenGLWindow::handleEvent(SDL_Event& event) {
   glm::ivec2 mousePosition;
@@ -52,11 +54,14 @@ void OpenGLWindow::paintGL() {
   abcg::glViewport(0, 0, m_viewportWidth, m_viewportHeight);
 
   abcg::glUseProgram(m_program);
-
+  m_modelMatrix = glm::rotate(m_modelMatrix, (float)M_PI, {0, 0, 1});
 
   m_modelMatrix = glm::translate(m_modelMatrix, m_model.m_position);
   m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.2f));
-  //  modelMatrix = glm::rotate(modelMatrix, m_angle, rotation);
+  m_modelMatrix = glm::rotate(m_modelMatrix, m_angle, m_model.m_rotation);
+  m_modelMatrix = glm::rotate(m_modelMatrix,
+                              (float) (-M_PI / 6 * cos(m_model.m_phi)),
+                              {1, 0, 0});
 
   // Get location of uniform variables (could be precomputed)
   const GLint viewMatrixLoc{
@@ -73,7 +78,6 @@ void OpenGLWindow::paintGL() {
 
   abcg::glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, &m_modelMatrix[0][0]);
   abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 1.0f, 1.0f);  // White
-
 
   m_model.render(m_trianglesToDraw);
 
@@ -191,12 +195,11 @@ void OpenGLWindow::terminateGL() {
 void OpenGLWindow::update() {
   float deltaTime{static_cast<float>(getDeltaTime())};
   m_modelMatrix = m_trackBall.getRotation();
+  m_angle = glm::wrapAngle(m_angle + glm::radians(90.0f) * 0.645 * deltaTime);
 
   m_viewMatrix =
       glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f + m_zoom),
                   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
   m_model.update(deltaTime);
-
-
 }

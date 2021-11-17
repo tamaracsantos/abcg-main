@@ -25,6 +25,7 @@ class OpenGLWindow : public abcg::OpenGLWindow {
 
   TrackBall m_trackBall;
   float m_zoom{};
+  float m_angle{90.0f};
 
   glm::mat4 m_modelMatrix{1.0f};
   glm::mat4 m_viewMatrix{1.0f};

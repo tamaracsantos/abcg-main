@@ -34,7 +34,7 @@ void abcg::TrackBall::mouseMove(const glm::ivec2 &position) {
 
 void abcg::TrackBall::mousePress(const glm::ivec2 &position) {
   m_rotation = getRotation();
-  m_mouseTracking = true;
+  m_mouseTracking = false;
 
   m_lastTime.restart();
 
