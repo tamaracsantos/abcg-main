@@ -53,6 +53,11 @@ void OpenGLWindow::paintGL() {
 
   abcg::glUseProgram(m_program);
 
+
+  m_modelMatrix = glm::translate(m_modelMatrix, m_model.m_position);
+  m_modelMatrix = glm::scale(m_modelMatrix, glm::vec3(0.2f));
+  //  modelMatrix = glm::rotate(modelMatrix, m_angle, rotation);
+
   // Get location of uniform variables (could be precomputed)
   const GLint viewMatrixLoc{
       abcg::glGetUniformLocation(m_program, "viewMatrix")};
@@ -66,9 +71,9 @@ void OpenGLWindow::paintGL() {
   abcg::glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, &m_viewMatrix[0][0]);
   abcg::glUniformMatrix4fv(projMatrixLoc, 1, GL_FALSE, &m_projMatrix[0][0]);
 
-  // Set uniform variables of the current object
   abcg::glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, &m_modelMatrix[0][0]);
   abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 1.0f, 1.0f);  // White
+
 
   m_model.render(m_trianglesToDraw);
 
@@ -184,9 +189,14 @@ void OpenGLWindow::terminateGL() {
 }
 
 void OpenGLWindow::update() {
+  float deltaTime{static_cast<float>(getDeltaTime())};
   m_modelMatrix = m_trackBall.getRotation();
 
   m_viewMatrix =
       glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f + m_zoom),
                   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+  m_model.update(deltaTime);
+
+
 }

@@ -1,4 +1,5 @@
 #include "model.hpp"
+#include "math.h"
 
 #include <fmt/core.h>
 #include <tiny_obj_loader.h>
@@ -164,4 +165,29 @@ void Model::terminateGL() {
   abcg::glDeleteBuffers(1, &m_EBO);
   abcg::glDeleteBuffers(1, &m_VBO);
   abcg::glDeleteVertexArrays(1, &m_VAO);
+}
+
+void Model::update(float delta) {
+  auto const RADIUS = 0.5f;
+  auto const INTERVAL = delta;
+  auto const INTERVAL2 = 0.3 * delta;
+
+
+  double x = RADIUS * cos(m_theta);
+  double y = m_position.y + m_yDirection * INTERVAL2;
+
+
+
+  double z = RADIUS * sin(m_theta);
+  double deltaX = z * cos(m_alpha) - x * sin(m_alpha);
+  double deltaZ = x * cos(m_alpha) + z * sin(m_alpha);
+
+  if (y > 0.3f) {
+    m_yDirection = -1;
+  } else if (y < -0.3f) {
+    m_yDirection = 1;
+  }
+
+  m_alpha += INTERVAL;
+  m_position = {deltaX , y, deltaZ};
 }

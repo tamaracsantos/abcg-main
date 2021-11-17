@@ -20,9 +20,17 @@ class Model {
   void setupVAO(GLuint program);
   void terminateGL();
 
+  void update(float delta);
   [[nodiscard]] int getNumTriangles() const {
     return static_cast<int>(m_indices.size()) / 3;
   }
+
+  double m_alpha{0.0};
+  double m_theta{5.0};
+
+  glm::vec3 m_position;
+
+  GLint m_yDirection{1};
 
  private:
   GLuint m_VAO{};
