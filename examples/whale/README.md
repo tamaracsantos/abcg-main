@@ -1,6 +1,6 @@
-#Projeto de Computacao Grafica
+# Projeto de Computacao Grafica
 
-##A2 - Desenvolvimento de uma aplicacao grafica 3D
+## A2 - Desenvolvimento de uma aplicacao grafica 3D
 
 Felipe Leite Uematsu 21008216
 Tamara Cavalcante dos Santos 21060012
