@@ -77,7 +77,7 @@ void OpenGLWindow::paintGL() {
   abcg::glUniformMatrix4fv(projMatrixLoc, 1, GL_FALSE, &m_projMatrix[0][0]);
 
   abcg::glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, &m_modelMatrix[0][0]);
-  abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 1.0f, 1.0f);  // White
+  abcg::glUniform4f(colorLoc, 0.5f, 0.4f, 1.0f, 1.0f);  // Purple
 
   m_model.render(m_trianglesToDraw);
 
