@@ -12,6 +12,9 @@ class TrackBall {
 
   [[nodiscard]] glm::mat4 getRotation();
 
+  void setAxis(glm::vec3 axis) { m_axis = axis; }
+  void setVelocity(float velocity) { m_velocity = velocity; }
+
  private:
   const float m_maxVelocity{glm::radians(720.0f / 1000.0f)};
 

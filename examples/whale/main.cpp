@@ -8,9 +8,9 @@ int main(int argc, char **argv) {
     abcg::Application app(argc, argv);
 
     auto window{std::make_unique<OpenGLWindow>()};
-    window->setOpenGLSettings({.samples = 4});
+    window->setOpenGLSettings({.samples = 0});
     window->setWindowSettings(
-        {.width = 600, .height = 600, .title = "Model Viewer (version 1)"});
+        {.width = 600, .height = 600, .title = "Model Viewer (version 4)"});
 
     app.run(std::move(window));
   } catch (const abcg::Exception &exception) {
