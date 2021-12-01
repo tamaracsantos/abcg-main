@@ -1,6 +1,6 @@
 # Projeto de Computacao Grafica
 
-## A2 - Desenvolvimento de uma aplicacao grafica 3D
+## A3 - Add Iluminação e textura a atividade 2
 
 Felipe Leite Uematsu 21008216
 Tamara Cavalcante dos Santos 21060012
