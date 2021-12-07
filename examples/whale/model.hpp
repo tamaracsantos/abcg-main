@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "abcg.hpp"
+#include "gamedata.hpp"
 
 struct Vertex {
   glm::vec3 position{};
@@ -35,9 +36,18 @@ class Model {
   [[nodiscard]] glm::vec4 getKs() const { return m_Ks; }
   [[nodiscard]] float getShininess() const { return m_shininess; }
 
+  double m_alpha{0.0};
+  double m_beta{0.0};
+  double m_phi{0.0};
+  double m_theta{5.0};
+
+  glm::vec3 m_position;
+  glm::vec3 m_rotation{0.0, 0.0, 1.0};
   [[nodiscard]] bool isUVMapped() const { return m_hasTexCoords; }
 
- private:
+  void update(float delta, const GameData &gameData);
+
+private:
   GLuint m_VAO{};
   GLuint m_VBO{};
   GLuint m_EBO{};

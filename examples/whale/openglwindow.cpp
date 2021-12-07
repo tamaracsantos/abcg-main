@@ -6,11 +6,31 @@
 #include <glm/gtc/matrix_inverse.hpp>
 
 #include "imfilebrowser.h"
+#include "glm/gtx/fast_trigonometry.hpp"
 
 void OpenGLWindow::handleEvent(SDL_Event& event) {
   glm::ivec2 mousePosition;
   SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
-
+    if (event.type == SDL_KEYDOWN) {
+        if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+            m_gameData.m_input.set(static_cast<size_t>(Input::Up));
+        if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
+            m_gameData.m_input.set(static_cast<size_t>(Input::Down));
+        if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+            m_gameData.m_input.set(static_cast<size_t>(Input::Left));
+        if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+            m_gameData.m_input.set(static_cast<size_t>(Input::Right));
+    }
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w)
+            m_gameData.m_input.reset(static_cast<size_t>(Input::Up));
+        if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s)
+            m_gameData.m_input.reset(static_cast<size_t>(Input::Down));
+        if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+            m_gameData.m_input.reset(static_cast<size_t>(Input::Left));
+        if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+            m_gameData.m_input.reset(static_cast<size_t>(Input::Right));
+    }
   if (event.type == SDL_MOUSEMOTION) {
     m_trackBallModel.mouseMove(mousePosition);
     m_trackBallLight.mouseMove(mousePosition);
@@ -82,7 +102,17 @@ void OpenGLWindow::paintGL() {
   const auto program{m_programs.at(m_currentProgramIndex)};
   abcg::glUseProgram(program);
 
-  // Get location of uniform variables
+    m_modelMatrix = glm::rotate(m_modelMatrix, (float)M_PI, {0, 0, 1});
+
+    m_modelMatrix = glm::translate(m_modelMatrix, m_model.m_position);
+    m_modelMatrix = glm::rotate(m_modelMatrix,
+                                (float) (-M_PI / 12 * cos(m_model.m_beta) - sin(m_model.m_phi) / 4),
+                                {1, 0, 0});
+    m_modelMatrix = glm::rotate(m_modelMatrix,
+                                (float) (sin(m_model.m_theta) / 3),
+                                {0, 1, 0});
+
+    // Get location of uniform variables
   const GLint viewMatrixLoc{abcg::glGetUniformLocation(program, "viewMatrix")};
   const GLint projMatrixLoc{abcg::glGetUniformLocation(program, "projMatrix")};
   const GLint modelMatrixLoc{
@@ -301,9 +331,13 @@ void OpenGLWindow::terminateGL() {
 }
 
 void OpenGLWindow::update() {
-  m_modelMatrix = m_trackBallModel.getRotation();
+    float deltaTime{static_cast<float>(getDeltaTime())};
+    m_modelMatrix = m_trackBallModel.getRotation();
+    m_angle = glm::wrapAngle(m_angle + glm::radians(90.0f) * 3 * deltaTime);
 
   m_viewMatrix =
       glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f + m_zoom),
                   glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+  m_model.update(deltaTime, m_gameData);
 }

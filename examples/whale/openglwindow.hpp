@@ -4,6 +4,7 @@
 #include "abcg.hpp"
 #include "model.hpp"
 #include "trackball.hpp"
+#include "gamedata.hpp"
 
 class OpenGLWindow : public abcg::OpenGLWindow {
  protected:
@@ -24,7 +25,8 @@ class OpenGLWindow : public abcg::OpenGLWindow {
   TrackBall m_trackBallModel;
   TrackBall m_trackBallLight;
   float m_zoom{};
-
+  float m_angle{90.0f};
+  GameData m_gameData;
   glm::mat4 m_modelMatrix{1.0f};
   glm::mat4 m_viewMatrix{1.0f};
   glm::mat4 m_projMatrix{1.0f};
