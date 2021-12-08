@@ -6,11 +6,11 @@ Felipe Leite Uematsu 21008216
 Tamara Cavalcante dos Santos 21060012
 
 
-Utilizamos como base nossa entrega 'whale' para a Atividade 2 e o exemplo 'viewer5'.
+Utilizamos como base nossa entrega whale para a Atividade 2 e o exemplo viewer5.
 
-Efetuamos alterações nos shaders de textura e iluminação. De forma resumida a textura ocorre através da adição de uma imagem de acordo com a superfície do objeto (baleia jubarte) e a iluminação através do cálculo de luz em relação a superfície do mesmo objeto.
+Efetuamos alteracoes nos shaders de textura e iluminacao. De forma resumida a textura ocorre atraves da adicao de uma imagem de acordo com a superficie do objeto (baleia jubarte) e a iluminacao atraves do calculo de luz em relacao a superficie do mesmo objeto.
 
-A parte interativa ocorre através da possibilidade de movimentação do objeto/baleia com a utilização das setas (para baixo, cima, direita, esquerda). Para iniciar interacao clique no objeto ou parte central da tela.
+A parte interativa ocorre atraves da possibilidade de movimentacao do objeto/baleia com a utilizacao das setas (para baixo, cima, direita, esquerda). Para iniciar interacao clique no objeto ou parte central da tela.
 
 
 Link gitHub projeto: https://github.com/tamaracsantos/abcg-main.git
