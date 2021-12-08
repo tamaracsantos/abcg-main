@@ -1,17 +1,18 @@
 # Projeto de Computacao Grafica
 
-## A3 - Add Iluminação e textura a atividade 2
+## A3 - Aplicacao Interativa com Graficos 3D, Iluminacao e Texturizacao
 
 Felipe Leite Uematsu 21008216
 Tamara Cavalcante dos Santos 21060012
 
 
-Utilizamos como base o projeto bunny.
+Utilizamos como base nossa entrega 'whale' para a Atividade 2 e o exemplo 'viewer5'.
 
-Foi utilizado o modelo 3D de uma baleia jubarte, a coloração da parte da frente foi alterada para roxo e seus movimentos foram alterados para dar a ideia de que a baleia está nadando conforma muda a perspectiva.
+Efetuamos alterações nos shaders de textura e iluminação. De forma resumida a textura ocorre através da adição de uma imagem de acordo com a superfície do objeto (baleia jubarte) e a iluminação através do cálculo de luz em relação a superfície do mesmo objeto.
+
+A parte interativa ocorre através da possibilidade de movimentação do objeto/baleia com a utilização das setas (para baixo, cima, direita, esquerda). Para iniciar interacao clique no objeto ou parte central da tela.
 
 
 Link gitHub projeto: https://github.com/tamaracsantos/abcg-main.git
 
-Link pag web com jogo rodando em WebAssembly: https://tamaracsantos.github.io/abcg-main/
-
+Link pag web em WebAssembly: https://tamaracsantos.github.io/abcg-main/
